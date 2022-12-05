@@ -1,6 +1,6 @@
 # SaveAccount
 
-![GitHub repo size](https://img.shields.io/github/repo-size/GabrielBatalhaDEV/README-template?style=for-the-badge)
+![GitHub repo size](https://img.shields.io/github/repo-size/GabrielBatalhaDEV/SaveAccount_V2?style=for-the-badge)
 
 <img src="https://i.ibb.co/XXtmxmc/Desktop-9.png" alt="ImageRepo" border="0">
 
