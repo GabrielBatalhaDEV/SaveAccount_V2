@@ -5,6 +5,8 @@ export async function GetCategoryController(
   request: Request,
   response: Response
 ) {
+  const id = request.params.id;
+
   const category = await GetCategoryService();
 
   response.json(category);

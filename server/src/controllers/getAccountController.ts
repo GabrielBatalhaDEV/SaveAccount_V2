@@ -5,9 +5,9 @@ export async function GetAccountController(
   request: Request,
   response: Response
 ) {
-  const { email } = request.body;
+  const id = request.userId;
 
-  const account = await GetAccountService({ email });
+  const account = await GetAccountService({ id });
 
   return response.json(account);
 }
