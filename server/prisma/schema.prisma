@@ -13,6 +13,7 @@ datasource db {
 model Account {
   id       String @id @default(uuid())
   email    String @unique
+  name     String @default("")
   password String
   Card     Card[]
 }
