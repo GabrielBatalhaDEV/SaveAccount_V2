@@ -1,12 +1,19 @@
 import { prisma } from "../utils/prismaClient";
 
 interface IProps {
-  email: string;
+  id: string;
 }
 
-export async function GetAccountService({ email }: IProps) {
+export async function GetAccountService({ id }: IProps) {
   const accounts = await prisma.account.findFirst({
-    where: { email },
+    where: { id },
+    include: {
+      _count: {
+        select: {
+          Card: true,
+        },
+      },
+    },
   });
 
   return accounts;

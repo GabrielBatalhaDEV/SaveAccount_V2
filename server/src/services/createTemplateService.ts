@@ -19,8 +19,6 @@ export async function createTemplateService({ name, templateBody }: IProps) {
 
   const templateBodyJSON = JSON.stringify(templateBody);
 
-  console.log(templateBodyJSON);
-
   const template = await prisma.template.create({
     data: {
       name,
