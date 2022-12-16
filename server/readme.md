@@ -102,13 +102,13 @@ Request
 
 ``` typescript
 {
-	title: string
+  title: string
   categoryName: string
-	cardBody:[
-		{
-			value: string
-		}
-	]
+  cardBody:[
+  {
+     value: string
+  }
+  ]
 }
 ```
 
@@ -131,12 +131,12 @@ Request
 
 ``` typescript
 {
-	title: string,
-	cardBody:[
-		{
-			value: string
-		}
-	]
+  title: string,
+  cardBody:[
+  {
+  value: string
+  }
+  ]
 }
 ```
 
@@ -174,14 +174,14 @@ Response
 ``` typescript
 [
   {
-		id: string
-		name: string
-		templateName: string
-		createdAt: string
-		_count: {
-			Card: number
-		}
-	}
+    id: string
+    name: string
+    templateName: string
+    createdAt: string
+    _count: {
+      Card: number
+    }
+  }
 ]
 ```
 
@@ -190,13 +190,13 @@ Response
 Response
 ``` typescript
 {
-	id: string
-	name: string
-	templateName: string
-	createdAt: string
-	_count: {
-		Card: number
-	}
+  id: string
+  name: string
+  templateName: string
+  createdAt: string
+  _count: {
+    Card: number
+  }
 }
 ```
 
@@ -205,8 +205,8 @@ Request
 
 ``` typescript
 {
-	name: string
-	templateName: string
+  name: string
+  templateName: string
 }
 ```
 
@@ -214,10 +214,10 @@ Response
 
 ``` typescript
 {
-	id: string
-	name: string
-	templateName: string
-	createdAt: string
+  id: string
+  name: string
+  templateName: string
+  createdAt: string
 }
 ```
 
@@ -227,7 +227,7 @@ Request
 
 ``` typescript
 {
-	name: string
+  name: string
 }
 ```
 
@@ -235,10 +235,10 @@ Response
 
 ``` typescript
 {
-	id: string
-	name: string
-	templateName: string
-	createdAt: string
+  id: string
+  name: string
+  templateName: string
+  createdAt: string
 }
 ```
 
@@ -256,7 +256,7 @@ Request
 
 ``` typescript
 {
-	email: string
+  email: string
   password: string
 }
 ```
@@ -274,13 +274,13 @@ Response
 
 ``` typescript
 {
-	id: string
-	email: string
-	name: string
-	password: string
-	_count: {
-		Card: number
-	}
+  id: string
+  email: string
+  name: string
+  password: string
+  _count: {
+    Card: number
+  }
 }
 ```
 
@@ -292,22 +292,22 @@ Response
 Response
 ``` typescript
 [
-	{
-		id: string
-		name: string
-		templateBody: [
-			{
-				name: string
-				placeholder: string
-			}
-		]
-		createdAt: string
-		Category: [
-			{
-				name: string
-			}
-		]
-	}
+  {
+    id: string
+    name: string
+    templateBody: [
+      {
+        name: string
+	placeholder: string
+      }
+    ]
+    createdAt: string
+    Category: [
+      {
+        name: string
+      }
+    ]
+  }
 ]
 ```
 
@@ -316,20 +316,20 @@ Response
 Response
 ``` typescript
 {
-	id: string
-	name: string
-	templateBody: [
-		{
-			name: string
-			placeholder: string
-		}
-	]
-	createdAt: string
-	Category: [
-		{
-			name: string
-		}
-	]
+  id: string
+  name: string
+  templateBody: [
+    {
+      name: string
+      placeholder: string
+    }
+  ]
+  createdAt: string
+  Category: [
+    {
+      name: string
+    }
+  ]
 }
 
 ```
@@ -339,8 +339,8 @@ Request
 
 ``` typescript
 {
-	name: string
-	templateName: string
+  name: string
+  templateName: string
 }
 ```
 
@@ -348,12 +348,12 @@ Response
 
 ``` typescript
 {
-	name: string
-	templateBody:[
-		{
-		  name: string
-			placeholder: string
-		}
-	]
+  name: string
+  templateBody:[
+    {
+       name: string
+       placeholder: string
+    }
+  ]
 }
 ```
