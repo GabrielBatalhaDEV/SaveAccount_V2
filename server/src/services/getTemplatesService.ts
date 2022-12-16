@@ -17,5 +17,9 @@ export async function getTemplatesService() {
     },
   });
 
-  return templates;
+  const newTemplates = templates.map((item) => {
+    return { ...item, templateBody: JSON.parse(item.templateBody) };
+  });
+
+  return newTemplates;
 }

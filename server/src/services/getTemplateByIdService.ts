@@ -20,5 +20,7 @@ export async function GetTemplateByIdService({ id }: IProps) {
 
   if (!template) throw { message: "This template don't exists" };
 
+  template.templateBody = JSON.parse(template.templateBody);
+
   return template;
 }

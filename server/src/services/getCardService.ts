@@ -13,5 +13,9 @@ export async function GetCardService({ id }: IProps) {
     },
   });
 
-  return cards;
+  const newCards = cards.map((item) => {
+    return { ...item, cardBody: JSON.parse(item.cardBody) };
+  });
+
+  return newCards;
 }

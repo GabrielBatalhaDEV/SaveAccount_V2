@@ -1,3 +1,4 @@
+import { json } from "express";
 import { prisma } from "../utils/prismaClient";
 
 interface IProps {
@@ -12,13 +13,6 @@ interface IProps {
 export async function UpdateCardService({ id, userId, title, body }: IProps) {
   if (!id || !userId || !title || !body)
     throw { message: "Theres a empty field" };
-
-  console.log({
-    id,
-    userId,
-    title,
-    body,
-  });
 
   const card = await prisma.card.findUnique({
     where: {
@@ -56,6 +50,8 @@ export async function UpdateCardService({ id, userId, title, body }: IProps) {
       cardBody: updatedBodyJSON,
     },
   });
+
+  updatedCard.cardBody = JSON.parse(updatedCard.cardBody);
 
   return updatedCard;
 }

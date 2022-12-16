@@ -19,5 +19,7 @@ export async function GetCardByIdService({ id, userId }: IProps) {
   if (!(card?.accountId === userId))
     throw { message: "Invalid Accessed", status: 401 };
 
+  card.cardBody = JSON.parse(card.cardBody);
+
   return card;
 }
