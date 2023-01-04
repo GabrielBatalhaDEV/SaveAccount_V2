@@ -11,18 +11,25 @@
     "build-storybook": "build-storybook"
   },
   "dependencies": {
+    "@coreui/coreui": "^4.2.6",
+    "@coreui/react": "^4.5.0",
+    "@radix-ui/react-dropdown-menu": "^2.0.1",
+    "localforage": "^1.10.0",
+    "match-sorter": "^6.3.1",
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.6.0",
+    "sort-by": "^0.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.20.5",
     "@storybook/addon-actions": "^6.5.14",
-    "@storybook/addon-essentials": "^6.5.14",
+    "@storybook/addon-essentials": "^6.4.22",
     "@storybook/addon-interactions": "^6.5.14",
     "@storybook/addon-links": "^6.5.14",
     "@storybook/builder-vite": "^0.2.6",
-    "@storybook/react": "^6.5.14",
+    "@storybook/react": "^6.1.21",
     "@storybook/testing-library": "^0.0.13",
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.9",
