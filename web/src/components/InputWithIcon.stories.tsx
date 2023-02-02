@@ -5,15 +5,22 @@ export default {
   title: "Components/InputWithIcon",
   component: InputWithIcon,
   args: {
-    type: "email",
+    icon: "Email",
     placeholder: "placeholder",
+  },
+  argTypes: {
+    className: {
+      table: {
+        disable: true,
+      },
+    },
   },
 } as Meta<InputWithIconProps>;
 
 export const Default = {
   argTypes: {
-    type: {
-      options: ["email", "password"],
+    icon: {
+      options: ["Email", "Password"],
       control: {
         type: "inline-radio",
       },

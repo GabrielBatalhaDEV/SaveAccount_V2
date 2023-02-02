@@ -7,6 +7,13 @@ export default {
   args: {
     text: "Button",
   },
+  argTypes: {
+    className: {
+      table: {
+        disable: true,
+      },
+    },
+  },
 } as Meta<ButtonBlueProps>;
 
 export const Default: StoryObj<ButtonBlueProps> = {};
