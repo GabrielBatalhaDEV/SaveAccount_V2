@@ -1,10 +1,70 @@
+import { ArrowRight } from "phosphor-react";
 import * as images from "../assets";
-import { ButtonBlue } from "../components/ButtonBlue/ButtonBlue";
-import { InputWithIcon } from "../components/InputWithIcon/InputWithIcon";
+import { InputWithIcon } from "../components/InputWithIcon";
+import { useNavigate } from "react-router-dom";
+import { FormEvent, useEffect, useState } from "react";
+import { api } from "../lib/axios";
+import { toast, ToastContainer } from "react-toastify";
+
+import "react-toastify/dist/ReactToastify.css";
 
 function Login() {
+  const navigate = useNavigate();
+
+  const [login, setLogin] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const [wrongLogin, setWrongLogin] = useState<boolean>(false);
+
+  const [token, setToken] = useState("");
+
+  useEffect(() => {
+    localStorage.setItem("API_TOKEN", token);
+  }, [token]);
+
+  function handleToast() {
+    toast.error("Login Incorreto!", {
+      position: "top-center",
+      autoClose: 1000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "dark",
+    });
+  }
+
+  async function authenticateUser(e: FormEvent) {
+    e.preventDefault();
+
+    if (!login || !password) {
+      setWrongLogin(true);
+
+      handleToast();
+
+      return;
+    }
+
+    console.log(`${login}, ${password}`);
+
+    api
+      .post("/login", {
+        email: login,
+        password,
+      })
+      .then((res) => {
+        setToken(res.data.token);
+        navigate("/home");
+      })
+      .catch(() => {
+        setWrongLogin(true);
+        handleToast();
+      });
+  }
   return (
     <div className="flex h-full ">
+      <ToastContainer />
       <aside className="bg-black-900 flex-grow pt-8">
         <img src={images.Logo} alt="Logo Save Account" className="m-auto" />
         <img
@@ -20,15 +80,32 @@ function Login() {
           Entre com suas credencias para acessar sua conta
         </p>
 
-        <div className="px-11 mt-20">
-          <InputWithIcon type="email" placeholder="Digite seu Email" />
+        <form className="px-11 mt-20" onSubmit={authenticateUser}>
           <InputWithIcon
-            type="password"
-            placeholder="Digite sua senha"
-            className="mt-5"
+            icon="Email"
+            placeholder="Digite seu Email"
+            onChange={(e) => setLogin(e.target.value)}
+            className={wrongLogin ? `ring-red-800` : ""}
+            autoFocus
           />
-          <ButtonBlue text="Entrar" className="mt-9" />
-        </div>
+          <div className="mt-5">
+            <InputWithIcon
+              icon="Password"
+              placeholder="Digite sua senha"
+              onChange={(e) => setPassword(e.target.value)}
+              className={wrongLogin ? `ring-red-800` : ""}
+            />
+          </div>
+          <div className="mt-9">
+            <button
+              type="submit"
+              className="bg-primary-600 w-full font-bold text-lg text-white rounded h-12 flex justify-center items-center gap-2 hover:bg-primary-400 focus:bg-primary-800"
+            >
+              Entrar
+              <ArrowRight size={32} color="#f2f2f5" weight="bold" />
+            </button>
+          </div>
+        </form>
       </main>
     </div>
   );
