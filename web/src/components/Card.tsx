@@ -14,7 +14,7 @@ export function Card({ title, category }: CardProps) {
     <Dialog.Root>
       <Dialog.Trigger
         type="button"
-        className="bg-black-700 w-60 h-32 text-center hover:brightness-90 rounded"
+        className="bg-black-700 w-60 h-32 text-center hover:brightness-90 rounded flex-none"
       >
         <h1 className="font-bold text-lg text-white">{title}</h1>
         <h2 className="font-semibold text-sm text-blue-800">{category}</h2>
