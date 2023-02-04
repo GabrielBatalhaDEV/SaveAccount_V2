@@ -8,6 +8,8 @@ import { toast, ToastContainer } from "react-toastify";
 
 import "react-toastify/dist/ReactToastify.css";
 
+type DataToken = { data: { token: string } };
+
 function Login() {
   const navigate = useNavigate();
 
@@ -16,14 +18,16 @@ function Login() {
 
   const [wrongLogin, setWrongLogin] = useState<boolean>(false);
 
-  const [token, setToken] = useState("");
+  /*useEffect(() => {
+    const token = localStorage.getItem("API_TOKEN");
 
-  useEffect(() => {
-    localStorage.setItem("API_TOKEN", token);
-  }, [token]);
+    if (token) {
+      navigate("/home");
+    }
+  }, []);*/
 
-  function handleToast() {
-    toast.error("Login Incorreto!", {
+  function handleToast(text: string) {
+    toast.error(text, {
       position: "top-center",
       autoClose: 1000,
       hideProgressBar: false,
@@ -41,27 +45,25 @@ function Login() {
     if (!login || !password) {
       setWrongLogin(true);
 
-      handleToast();
+      handleToast("Login/Password Empty");
 
       return;
     }
-
-    console.log(`${login}, ${password}`);
-
     api
       .post("/login", {
         email: login,
         password,
       })
-      .then((res) => {
-        setToken(res.data.token);
+      .then((response) => {
+        localStorage.setItem("API_TOKEN", response.data.token);
         navigate("/home");
       })
-      .catch(() => {
+      .catch(({ response }) => {
         setWrongLogin(true);
-        handleToast();
+        handleToast(response.data.message);
       });
   }
+
   return (
     <div className="flex h-full ">
       <ToastContainer />
@@ -80,11 +82,19 @@ function Login() {
           Entre com suas credencias para acessar sua conta
         </p>
 
-        <form className="px-11 mt-20" onSubmit={authenticateUser}>
+        <form
+          className="px-11 mt-20"
+          onSubmit={(e) => {
+            authenticateUser(e);
+          }}
+        >
           <InputWithIcon
             icon="Email"
             placeholder="Digite seu Email"
-            onChange={(e) => setLogin(e.target.value)}
+            onChange={(e) => {
+              setLogin(e.target.value);
+              setWrongLogin(false);
+            }}
             className={wrongLogin ? `ring-red-800` : ""}
             autoFocus
           />
@@ -92,7 +102,10 @@ function Login() {
             <InputWithIcon
               icon="Password"
               placeholder="Digite sua senha"
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setWrongLogin(false);
+              }}
               className={wrongLogin ? `ring-red-800` : ""}
             />
           </div>
