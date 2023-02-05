@@ -1,8 +1,10 @@
+import { QueryClient, QueryClientProvider } from "react-query";
 import { Home } from "./pages/Home";
 import { Login } from "./pages/Login";
-import { createBrowserRouter } from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { createContext, useState } from "react";
 
-export const routes = createBrowserRouter([
+const routes = createBrowserRouter([
   {
     path: "/",
     element: <Login />,
@@ -12,3 +14,15 @@ export const routes = createBrowserRouter([
     element: <Home />,
   },
 ]);
+
+const queryClient = new QueryClient();
+
+export function App() {
+  const [authToken, setAuthToken] = useState<string>();
+
+  return (
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={routes} />
+    </QueryClientProvider>
+  );
+}
