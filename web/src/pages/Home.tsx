@@ -25,7 +25,7 @@ export function Home() {
   const [isCardsExists, setIsCardsExists] = useState<boolean>(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("API_TOKEN");
+    const token = localStorage.getItem("AUTH_TOKEN");
 
     api
       .get("/account", {

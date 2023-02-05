@@ -2,29 +2,36 @@ import { ArrowRight } from "phosphor-react";
 import * as images from "../assets";
 import { InputWithIcon } from "../components/InputWithIcon";
 import { useNavigate } from "react-router-dom";
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import { api } from "../lib/axios";
 import { toast, ToastContainer } from "react-toastify";
+import ReactLoading from "react-loading";
 
 import "react-toastify/dist/ReactToastify.css";
+import { useMutation } from "react-query";
 
-type DataToken = { data: { token: string } };
+interface authenticateType {
+  login: string;
+  password: string;
+}
 
 function Login() {
   const navigate = useNavigate();
 
   const [login, setLogin] = useState<string>("");
   const [password, setPassword] = useState<string>("");
-
   const [wrongLogin, setWrongLogin] = useState<boolean>(false);
 
-  /*useEffect(() => {
-    const token = localStorage.getItem("API_TOKEN");
+  const { isLoading, mutate } = useMutation(authenticateUser, {
+    onSuccess: ({ data }) => {
+      localStorage.setItem("AUTH_TOKEN", data.token);
 
-    if (token) {
       navigate("/home");
-    }
-  }, []);*/
+    },
+    onError: () => {
+      handleToast("Email/Password incorrect");
+    },
+  });
 
   function handleToast(text: string) {
     toast.error(text, {
@@ -39,29 +46,19 @@ function Login() {
     });
   }
 
-  async function authenticateUser(e: FormEvent) {
+  async function authenticateUser({ login, password }: authenticateType) {
+    const response = await api.post("/login", {
+      email: login,
+      password,
+    });
+
+    return response;
+  }
+
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
 
-    if (!login || !password) {
-      setWrongLogin(true);
-
-      handleToast("Login/Password Empty");
-
-      return;
-    }
-    api
-      .post("/login", {
-        email: login,
-        password,
-      })
-      .then((response) => {
-        localStorage.setItem("API_TOKEN", response.data.token);
-        navigate("/home");
-      })
-      .catch(({ response }) => {
-        setWrongLogin(true);
-        handleToast(response.data.message);
-      });
+    mutate({ login, password });
   }
 
   return (
@@ -85,7 +82,7 @@ function Login() {
         <form
           className="px-11 mt-20"
           onSubmit={(e) => {
-            authenticateUser(e);
+            handleSubmit(e);
           }}
         >
           <InputWithIcon
@@ -114,8 +111,19 @@ function Login() {
               type="submit"
               className="bg-primary-600 w-full font-bold text-lg text-white rounded h-12 flex justify-center items-center gap-2 hover:bg-primary-400 focus:bg-primary-800"
             >
-              Entrar
-              <ArrowRight size={32} color="#f2f2f5" weight="bold" />
+              {isLoading ? (
+                <ReactLoading
+                  type="spin"
+                  color="#f2f2f5"
+                  height={28}
+                  width={28}
+                />
+              ) : (
+                <>
+                  Entrar
+                  <ArrowRight size={32} color="#f2f2f5" weight="bold" />
+                </>
+              )}
             </button>
           </div>
         </form>
