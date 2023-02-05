@@ -24,7 +24,7 @@ function Login() {
 
   const { isLoading, mutate } = useMutation(authenticateUser, {
     onSuccess: ({ data }) => {
-      localStorage.setItem("AUTH_TOKEN", data.token);
+      sessionStorage.setItem("AUTH_TOKEN", data.token);
 
       navigate("/home");
     },

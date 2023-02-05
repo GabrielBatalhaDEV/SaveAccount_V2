@@ -1,10 +1,12 @@
 import { ButtonAdd } from "../components/ButtonAdd";
 import { Header } from "../components/Header";
 import { SearchBar } from "../components/SearchBar";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { api } from "../lib/axios";
 import { NotFound } from "../assets";
 import { CardCarousel } from "../components/CardCarousel";
+
+import { createContext } from "react";
 
 type CardDataProps = {
   id: string;
@@ -18,25 +20,25 @@ type CardDataProps = {
   };
 }[];
 
-export function Home() {
-  const [username, setUsername] = useState<string>("Undefined");
-  const [recentsCards, setRecentsCards] = useState<CardDataProps>([]);
+type UserContextProps = {
+  isCardsExists: boolean;
+  setIsCardsExists: React.Dispatch<React.SetStateAction<boolean>>;
+};
 
-  const [isCardsExists, setIsCardsExists] = useState<boolean>(false);
+export const UserContext = createContext<UserContextProps>({
+  isCardsExists: false,
+  setIsCardsExists: () => {},
+});
+
+export function Home() {
+  const [recentsCards, setRecentsCards] = useState<CardDataProps>([]);
+  const [isCardsExists, setIsCardsExists] = useState(false);
+
+  const token = sessionStorage.getItem("AUTH_TOKEN");
+
+  function fetchUser() {}
 
   useEffect(() => {
-    const token = localStorage.getItem("AUTH_TOKEN");
-
-    api
-      .get("/account", {
-        headers: { Authorization: `bearer ${token}` },
-      })
-      .then((res) => {
-        setUsername(res.data.name);
-        console.log(res.data);
-      })
-      .catch((err) => console.log(err));
-
     api
       .get("/card", {
         headers: {
@@ -49,14 +51,14 @@ export function Home() {
 
   useEffect(() => {
     if (recentsCards.length > 0) {
-      setIsCardsExists(true);
     }
   }, [recentsCards]);
 
   return (
     <div>
-      <Header username={username} />
-
+      <UserContext.Provider value={{ isCardsExists, setIsCardsExists }}>
+        <Header />
+      </UserContext.Provider>
       <div className="flex justify-center gap-2 pt-2 border-t border-black-100 mt-14 mx-40">
         <ButtonAdd />
         <div className="min-w-[400px]">
@@ -68,7 +70,6 @@ export function Home() {
         {isCardsExists ? (
           <div className="flex flex-col mt-4 gap-5">
             <CardCarousel categoryName="Recentes" cardsData={recentsCards} />
-            <CardCarousel categoryName="Games" cardsData={recentsCards} />
           </div>
         ) : (
           <div className="flex justify-center ">
