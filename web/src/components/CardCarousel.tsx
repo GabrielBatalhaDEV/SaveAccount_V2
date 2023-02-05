@@ -1,6 +1,4 @@
 import { Card } from "./Card";
-
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { CaretLeft, CaretRight } from "phosphor-react";
 import { useRef } from "react";
 
