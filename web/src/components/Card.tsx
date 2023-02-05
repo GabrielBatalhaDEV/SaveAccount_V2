@@ -3,13 +3,17 @@ import * as VisuallyHidden from "@radix-ui/react-visually-hidden";
 import * as Label from "@radix-ui/react-label";
 
 import { X } from "phosphor-react";
+import { useQuery } from "react-query";
+import { api } from "../lib/axios";
+import { CardFormBody } from "./CardFormBody";
 
 interface CardProps {
   title: string;
   category: string;
+  id: string;
 }
 
-export function Card({ title, category }: CardProps) {
+export function Card({ title, category, id }: CardProps) {
   return (
     <Dialog.Root>
       <Dialog.Trigger
@@ -41,21 +45,7 @@ export function Card({ title, category }: CardProps) {
             />
           </Dialog.Close>
 
-          <form className="flex flex-col gap-4">
-            <div className="flex flex-col gap-1">
-              <Label.Root
-                className="text-base font-normal text-black-100"
-                htmlFor="Login"
-              >
-                Login
-              </Label.Root>
-              <input
-                type="text"
-                placeholder="E-mail / Usuário"
-                className="bg-black-400 rounded-lg p-2 placeholder:text-black-100 outline-none border border-black-100 focus-within:border-primary-600"
-              />
-            </div>
-          </form>
+          <CardFormBody id={id} />
         </Dialog.Content>
       </Dialog.Portal>
     </Dialog.Root>

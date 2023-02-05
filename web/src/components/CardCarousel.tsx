@@ -1,6 +1,7 @@
+import clsx from "clsx";
 import { Card } from "./Card";
 import { CaretLeft, CaretRight } from "phosphor-react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 
 import { MouseEvent } from "react";
 
@@ -25,7 +26,7 @@ export function CardCarousel({ cardsData, categoryName }: CarouselCardProps) {
   function handleLeftClick(e: MouseEvent) {
     e.preventDefault();
     if (carousel.current) {
-      carousel.current.scrollLeft -= carousel.current.offsetWidth / 2;
+      carousel.current.scrollLeft -= carousel.current.offsetWidth;
     }
   }
 
@@ -33,7 +34,7 @@ export function CardCarousel({ cardsData, categoryName }: CarouselCardProps) {
     e.preventDefault();
 
     if (carousel.current) {
-      carousel.current.scrollLeft += carousel.current.offsetWidth / 2;
+      carousel.current.scrollLeft += carousel.current.offsetWidth;
     }
   }
 
@@ -44,23 +45,29 @@ export function CardCarousel({ cardsData, categoryName }: CarouselCardProps) {
           {categoryName}
         </h1>
         <div className="flex">
-          <button onClick={handleLeftClick}>
-            <CaretLeft size={32} color="#f2f2f5" className="cursor-pointer" />
+          <button onClick={handleLeftClick} className="min-w-[32px]">
+            <CaretLeft size={32} color="#ffffff" className="cursor-pointer" />
           </button>
+
           <div
-            className="flex overflow-x-hidden scroll-smooth gap-2 "
+            className="flex overflow-x-auto scroll-smooth gap-2 "
             ref={carousel}
           >
             {cardsData.map((card) => (
               <Card
                 title={card.title}
                 category={card.categoryName}
+                id={card.id}
                 key={card.id}
               />
             ))}
           </div>
-          <button onClick={handleRightClick}>
-            <CaretRight size={32} color="#f2f2f5" className="cursor-pointer" />
+          <button onClick={handleRightClick} className="min-w-[32px]">
+            <CaretRight
+              size={32}
+              color="#ffffff"
+              className="cursor-pointer hover:brightness-75"
+            />
           </button>
         </div>
       </div>
