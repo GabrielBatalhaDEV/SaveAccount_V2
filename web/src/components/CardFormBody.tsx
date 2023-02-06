@@ -1,6 +1,7 @@
 import { useQuery } from "react-query";
 import { api } from "../lib/axios";
 import * as Label from "@radix-ui/react-label";
+import { PencilSimpleLine, TrashSimple } from "phosphor-react";
 
 interface ResponseProps {
   id: string;
@@ -52,6 +53,17 @@ export function CardFormBody({ id }: CardFormBodyProps) {
           </div>
         );
       })}
+
+      <div className="flex justify-around font-bold mt-8">
+        <button className="flex px-6 py-3 bg-orange-800 hover:bg-orange-600 rounded">
+          <PencilSimpleLine size={24} color="#ffff" />
+          <span>Editar</span>
+        </button>
+        <button className="flex px-6 py-3 bg-red-800 hover:bg-red-600 rounded">
+          <TrashSimple size={24} color="#ffff" />
+          <span>Deletar</span>
+        </button>
+      </div>
     </form>
   );
 }

@@ -1,5 +1,5 @@
 import { Meta } from "@storybook/react";
-import { Header, HeaderProps } from "./Header";
+import { Header } from "./Header";
 
 export default {
   title: "Components/Header",
@@ -7,6 +7,6 @@ export default {
   args: {
     username: "Username",
   },
-} as Meta<HeaderProps>;
+} as Meta;
 
 export const Default = {};
